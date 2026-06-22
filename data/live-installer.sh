@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if ! ls -la /lib/live-installer/main.py | grep "^...x" ; then
-    pkexec chmod 755 /lib/live-installer/main.py
+if ! [ $UID -eq 0 ] ; then
+    exec pkexec /usr/bin/live-installer "$@"
 fi
-pkexec /lib/live-installer/main.py $@
+exec python3 /lib/live-installer/main.py $@
